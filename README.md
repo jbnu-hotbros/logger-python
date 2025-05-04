@@ -32,6 +32,9 @@ docker run -d -p 27017:27017 --name mongodb mongo:latest
 # 모듈 이름 (로그 구분용)
 MODULE_NAME=your_module_name
 
+# 최소 로그 레벨 (해당 로그 레벨 이상만 로깅됨. 실 사용시 INFO 레벨 추천)
+MINIMUM_LOG_LEVEL = DEBUG
+
 # MongoDB 연결 정보
 LOGGER_MONGO_DATABASE_HOST=127.0.0.1
 LOGGER_MONGO_DATABASE_PORT=27017
