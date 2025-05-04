@@ -6,7 +6,7 @@ MongoDB를 사용하는 Python 로깅 시스템입니다. 로그 데이터를 Mo
 
 - Python의 기본 logging 모듈과 호환
 - MongoDB에 로그 데이터 저장
-- 타임존 설정 가능 (기본값: Asia/Seoul, UTC+9)
+- 타임존 설정 가능 (기본값: Asia/Seoul, UTC+9) --(설정 기능 미구현)--
 - 모듈별 로그 구분 가능
 
 ## 설치
