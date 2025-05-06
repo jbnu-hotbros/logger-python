@@ -1,3 +1,5 @@
+# test/utils.py
+# 테스트용 유틸리티 함수
 import random
 import string
 
