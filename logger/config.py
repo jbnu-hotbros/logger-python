@@ -1,7 +1,7 @@
 import logging
 from logging import StreamHandler
 
-from .custom_handler import MongoDBHandler, AsyncMongoDBHandler
+from .custom_handler import MongoDBHandler, AsyncMongoDBHandler, ExcludeInternalLogsFilter
 from .settings import LoggerSettings
 
 from datetime import datetime, timezone, timedelta
@@ -11,7 +11,7 @@ settings = LoggerSettings()
 def kst_converter(*args):
     return datetime.now(timezone(timedelta(hours=9))).timetuple()
 
-def configure_logging(level: str = None, use_async: bool = False):
+def configure_logging(level: str = None, use_streamhandler: bool = False, use_async: bool = False, internal_filter: bool = False):
     log_level_str = level or settings.level
     log_level = getattr(logging, log_level_str.upper(), logging.INFO)
 
@@ -28,10 +28,18 @@ def configure_logging(level: str = None, use_async: bool = False):
     if root_logger.hasHandlers():
         root_logger.handlers.clear()
 
-    stream_handler = StreamHandler()
-    stream_handler.setFormatter(formatter)
-    root_logger.addHandler(stream_handler)
+    # 필터 생성
+    internal_filter = ExcludeInternalLogsFilter()
 
+    # 스트림 핸들러 설정
+    if use_streamhandler:
+        stream_handler = StreamHandler()
+        stream_handler.setFormatter(formatter)
+        if internal_filter:
+            stream_handler.addFilter(internal_filter)  # 필터 추가
+        root_logger.addHandler(stream_handler)
+
+    # MongoDB 핸들러 설정
     mongo_handler = AsyncMongoDBHandler() if use_async else MongoDBHandler()
     mongo_handler.setFormatter(formatter)
     root_logger.addHandler(mongo_handler)

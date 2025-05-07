@@ -26,7 +26,7 @@ class ExcludeInternalLogsFilter(logging.Filter):
     )
 
     def filter(self, record: logging.LogRecord) -> bool:
-        return not record.name.startswith(self.BLOCKED_PREFIXES)
+        return not any(record.name.startswith(prefix) for prefix in self.BLOCKED_PREFIXES)
 
 # --- 동기 MongoDB 핸들러 ---
 class MongoDBHandler(logging.Handler):

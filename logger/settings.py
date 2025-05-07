@@ -10,5 +10,6 @@ class LoggerSettings(BaseSettings):
     class Config:
         env_file = ".env"
         env_prefix = "LOGGER_"
+        extra = "allow"
 
 settings = LoggerSettings()

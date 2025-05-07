@@ -1,6 +1,6 @@
 import pymongo
 from motor.motor_asyncio import AsyncIOMotorClient
-from logger.settings import settings
+from .settings import settings
 
 # 내부 URI 생성 함수
 def _get_uri() -> str:
